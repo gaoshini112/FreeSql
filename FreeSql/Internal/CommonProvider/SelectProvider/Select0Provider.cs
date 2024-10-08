@@ -1423,7 +1423,7 @@ namespace FreeSql.Internal.CommonProvider
             {
                 var countField = "1";
                 if (tmpDistinct && _selectExpression != null) countField = $"distinct {this.GetExpressionField(_selectExpression, FieldAliasOptions.AsEmpty).field}";
-                return (await this.ToListAsync<int>($"count({countField}){_commonUtils.FieldAsAlias("as1")}", cancellationToken)).Sum(); //这里的 Sum 为了分表查询
+                return (await this.ToListAsync<long>($"count({countField}){_commonUtils.FieldAsAlias("as1")}", cancellationToken)).Sum(); //这里的 Sum 为了分表查询
             }
             finally
             {
