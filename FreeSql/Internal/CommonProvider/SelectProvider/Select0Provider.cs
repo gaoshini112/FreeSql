@@ -1407,7 +1407,7 @@ namespace FreeSql.Internal.CommonProvider
         async public Task<bool> AnyAsync(CancellationToken cancellationToken = default)
         {
             this.Limit(1);
-            return (await this.ToListAsync<int>($"1{_commonUtils.FieldAsAlias("as1")}", cancellationToken)).Sum() > 0; //这里的 Sum 为了分表查询
+            return (await this.ToListAsync<long>($"1{_commonUtils.FieldAsAlias("as1")}", cancellationToken)).Sum() > 0; //这里的 Sum 为了分表查询
         }
         async public Task<long> CountAsync(CancellationToken cancellationToken = default)
         {
@@ -1423,7 +1423,7 @@ namespace FreeSql.Internal.CommonProvider
             {
                 var countField = "1";
                 if (tmpDistinct && _selectExpression != null) countField = $"distinct {this.GetExpressionField(_selectExpression, FieldAliasOptions.AsEmpty).field}";
-                return (await this.ToListAsync<int>($"count({countField}){_commonUtils.FieldAsAlias("as1")}", cancellationToken)).Sum(); //这里的 Sum 为了分表查询
+                return (await this.ToListAsync<long>($"count({countField}){_commonUtils.FieldAsAlias("as1")}", cancellationToken)).Sum(); //这里的 Sum 为了分表查询
             }
             finally
             {
